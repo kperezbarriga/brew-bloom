@@ -362,3 +362,39 @@
     flex-direction: column;
   }
 }
+/* Bottom tab bar (Brew | Workspace) */
+.bottom-tabs {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  background: #fbf7ef;
+  border-top: 1px solid #e5d8c8;
+}
+.bottom-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 26px;
+  border: 1px solid transparent;
+  border-radius: 30px;
+  background: transparent;
+  color: #9c8975;
+  font: 700 13px inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+.bottom-tab.is-active {
+  background: #e3eddf;
+  color: #35684e;
+  border-color: #cfe0cc;
+}
+.cafe-page.has-tabbar,
+.wellness-page.has-tabbar {
+  padding-bottom: 76px;
+}

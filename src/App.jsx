@@ -5,7 +5,8 @@ import { DRINKS } from './data/drinks'
 import Brewing from './screens/Brewing'
 import Receipt from './screens/Receipt'
 import FocusTime from './screens/FocusTime'
-import Wellness from './screens/Wellness'
+import Workspace from './screens/Workspace'
+import BottomTabBar from './components/BottomTabBar'
 
 const drinkDetails = {
   latte: {
@@ -28,6 +29,11 @@ const drinkDetails = {
   },
 }
 
+const TABS = [
+  { id: 'brew', label: 'Brew', icon: '☕' },
+  { id: 'workspace', label: 'Workspace', icon: '🌱' },
+]
+
 function App() {
   const [screen, setScreen] = useState('pick')
   const [selectedId, setSelectedId] = useState(
@@ -40,12 +46,17 @@ function App() {
   const drink =
     DRINKS.find((d) => d.id === selectedId) ?? DRINKS[0]
 
-  // Wellness page
-  if (screen === 'wellness') {
+  // Workspace tab (task garden + hydration)
+  if (screen === 'workspace') {
     return (
-      <Wellness
-        onBack={() => setScreen('pick')}
-      />
+      <>
+        <Workspace />
+        <BottomTabBar
+          tabs={TABS}
+          active="workspace"
+          onChange={(id) => setScreen(id === 'brew' ? 'pick' : id)}
+        />
+      </>
     )
   }
 
@@ -92,7 +103,7 @@ function App() {
 
   // Main drink selection page
   return (
-    <div className="cafe-page">
+    <div className="cafe-page has-tabbar">
       <header className="cafe-header">
         <a
           className="brand"
@@ -106,14 +117,6 @@ function App() {
         <span className="header-caption">
           YOUR LITTLE CORNER OF CALM
         </span>
-
-        <button
-          type="button"
-          className="header-pill wellness-entry"
-          onClick={() => setScreen('wellness')}
-        >
-          ✿ Your wellness
-        </button>
       </header>
 
       <main className="picker" id="top">
@@ -261,6 +264,12 @@ function App() {
           <span>BREW SLOWLY. BLOOM DAILY.</span>
         </div>
       </main>
+
+      <BottomTabBar
+        tabs={TABS}
+        active="brew"
+        onChange={(id) => setScreen(id === 'brew' ? 'pick' : id)}
+      />
     </div>
   )
 }
